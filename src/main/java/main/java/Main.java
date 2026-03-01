@@ -1,5 +1,7 @@
 package main.java;
 
+import com.sun.mail.imap.IMAPFolder;
+
 import javax.mail.*;
 import java.util.Properties;
 
@@ -28,9 +30,20 @@ public class Main {
         messages = inbox.getMessages();
         //Collections.reverse(Arrays.asList(messages));
         System.out.println("Total Messages: " + messages.length);
+        System.out.println("Folders");
+        listFolders(store);
 
 
         store.close();
+    }
+
+    public static void listFolders(Store store) throws MessagingException {
+        IMAPFolder[] folders = (IMAPFolder[]) store.getDefaultFolder().list("*");
+        for(IMAPFolder folder : folders) {
+
+            int count = folder.getType() == 3 ? folder.getMessageCount() : 0;
+            System.out.println(folder.getName() + " = " + count);
+        }
     }
 
 
