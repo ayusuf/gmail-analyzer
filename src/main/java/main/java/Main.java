@@ -32,7 +32,7 @@ public class Main {
         System.out.println("Total Messages: " + messages.length);
         System.out.println("Folders");
         listFolders(store);
-
+        printMessages(messages, 10);
 
         store.close();
     }
@@ -43,6 +43,12 @@ public class Main {
 
             int count = folder.getType() == 3 ? folder.getMessageCount() : 0;
             System.out.println(folder.getName() + " = " + count);
+        }
+    }
+
+    public static void printMessages(Message[] messages, int n) throws MessagingException {
+        for (int i = 0; i < n; i++) {
+            System.out.printf("%s,%s,%s%n", messages[i].getFrom()[0], messages[i].getSubject(), messages[i].getReceivedDate());
         }
     }
 
